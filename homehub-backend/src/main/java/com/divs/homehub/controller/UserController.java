@@ -3,6 +3,7 @@ package com.divs.homehub.controller;
 import com.divs.homehub.dto.RegisterUserRequest;
 import com.divs.homehub.dto.UserResponse;
 import com.divs.homehub.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public UserResponse register(@RequestBody RegisterUserRequest request) {
+    public UserResponse register(@Valid @RequestBody RegisterUserRequest request) {
         return userService.register(request);
     }
 
