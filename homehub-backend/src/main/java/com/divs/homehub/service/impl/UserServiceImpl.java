@@ -1,4 +1,5 @@
 package com.divs.homehub.service.impl;
+import com.divs.homehub.exception.DuplicateEmailException;
 import com.divs.homehub.service.UserService;
 import java.util.List;
 import com.divs.homehub.dto.RegisterUserRequest;
@@ -16,6 +17,7 @@ public class UserServiceImpl implements UserService {
             new BCryptPasswordEncoder();
 
     private final UserRepository userRepository;
+
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -28,6 +30,10 @@ public class UserServiceImpl implements UserService {
         //Bcrypt Password saving
         String hashedPassword = passwordEncoder.encode(request.getPassword());
         user.setPassword(hashedPassword);
+
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new DuplicateEmailException("Email already exists");
+        }
 
         User result = userRepository.save(user);
         UserResponse userResponse = new UserResponse();
