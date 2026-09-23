@@ -5,4 +5,6 @@ import com.divs.homehub.dto.FamilyResponse;
 public interface FamilyService {
 
     FamilyResponse createFamily(CreateFamilyRequest request, Long userId);
+    FamilyResponse joinFamily(String inviteCode, Long userId);
+
 }

@@ -30,4 +30,11 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST)
                 .body("Invalid request data");
     }
+
+    @ExceptionHandler(AlreadyFamilyMemberException.class)
+    public ResponseEntity<String> handleAlreadyFamilyMemberException(AlreadyFamilyMemberException ex){
+        logger.warn("Already a Family member for this invite code. User can not join again : ", ex);
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("Already a Family member for this invite code. User can not join again.");
+    }
+
 }

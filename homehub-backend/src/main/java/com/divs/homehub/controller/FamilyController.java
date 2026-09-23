@@ -1,5 +1,6 @@
 package com.divs.homehub.controller;
 
+import com.divs.homehub.dto.JoinFamilyRequest;
 import com.divs.homehub.service.FamilyService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,5 +25,10 @@ public class FamilyController {
             @Valid @RequestBody CreateFamilyRequest request) {
 
         return familyService.createFamily(request, 1L);
+    }
+
+    @PostMapping("/join")
+    public FamilyResponse joinFamily(@Valid @RequestBody JoinFamilyRequest joinFamilyRequest) {
+        return familyService.joinFamily(joinFamilyRequest.getInviteCode(), 2L);
     }
 }

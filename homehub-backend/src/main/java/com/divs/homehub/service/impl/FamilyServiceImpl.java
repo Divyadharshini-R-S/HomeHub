@@ -1,6 +1,7 @@
 package com.divs.homehub.service.impl;
 import com.divs.homehub.entity.Family;
 import com.divs.homehub.entity.FamilyMember;
+import com.divs.homehub.exception.AlreadyFamilyMemberException;
 import com.divs.homehub.repository.UserRepository;
 import com.divs.homehub.repository.FamilyRepository;
 import com.divs.homehub.repository.FamilyMemberRepository;
@@ -12,6 +13,7 @@ import com.divs.homehub.entity.User;
 
 import java.util.UUID;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -62,5 +64,29 @@ public class FamilyServiceImpl implements FamilyService {
         response.setInviteCode(savedFamily.getInviteCode());
 
         return response;
+    }
+
+    @Override
+    public FamilyResponse joinFamily(String inviteCode, Long userId) {
+        // logic comes here
+        Family family = familyRepository.findByInviteCode(inviteCode).orElseThrow(
+                ()-> new EntityNotFoundException("Invite Code not found"));
+        if(familyMemberRepository.existsByUserIdAndFamilyId(userId,family.getId())){
+            throw new AlreadyFamilyMemberException("User is already part of this family ");
+        }
+        else{
+            FamilyMember member = new FamilyMember();
+            member.setUser(userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found")));
+            member.setFamily(family);
+            member.setRole("MEMBER");
+
+            familyMemberRepository.save(member);
+            FamilyResponse response = new FamilyResponse();
+            response.setId(family.getId());
+            response.setFamilyName(family.getName());
+            response.setInviteCode(inviteCode);
+            return response;
+        }
+
     }
 }
