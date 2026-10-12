@@ -1,15 +1,15 @@
+import { Package, History, Users, Settings } from 'lucide-react';
 type SidebarProps={
         isExpanded:boolean;
     };
 
 export default function SideBar({isExpanded}:SidebarProps) {
-    
     return (
         <div className={`sidebar ${isExpanded ? 'expanded' : 'collapsed'}`}>
-            <button><span>Invicon</span>{isExpanded && 'Inventory'}</button>
-            <button><span>Historyicon</span>{isExpanded && 'History'}</button>
-            <button><span>Familyicon</span>{isExpanded && 'Family'}</button>
-            <button><span>Settingsicon</span>{isExpanded && 'Settings'}</button>
+            <button><Package/>{isExpanded && 'Inventory'}</button>
+            <button><History/>{isExpanded && 'History'}</button>
+            <button><Users/>{isExpanded && 'Family'}</button>
+            <button><Settings/>{isExpanded && 'Settings'}</button>
         </div> 
     );
 }

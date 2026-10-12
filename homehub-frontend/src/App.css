@@ -1,4 +1,3 @@
-/* Reset and basic layout structure */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -9,14 +8,42 @@
   height: 60px;
   background-color: #e3eee6;
   border-bottom: 1px solid #e0e0e0;
+  padding: 0 10px;
   display: flex;
   align-items: center;
-  padding: 0 20px;
+  
+}
+
+.NavBar {
+  justify-content: space-between;
+}
+
+.navbar-left,
+.navbar-right {
+  color:   #45543c;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.navbar-right button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.navbar-right button:hover {
+  background-color: #d2e2d6;
 }
 
 .SideBarToggleBtn {
-  background-color: #8aa37c;
-  color: white;
+  background-color: #c1d2c6;
+  color:   #45543c;
   border: none;
   padding: 8px 12px;
   border-radius: 4px;
@@ -28,18 +55,28 @@
   background-color: #0056b3;
 }
 
-/* Sidebar Styling */
 .sidebar {
   background-color: #e3eee6;
+  color:   #45543c;
   height: calc(100vh - 60px);
   display: flex;
   flex-direction: column;
   padding: 20px 10px;
-  gap: 10px; 
-  transition: width 0.3s ease; /* Smooth transition */
+  gap: 10px;
+  transition: width 0.3s ease;
 }
 
-
+.sidebar button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  text-align: left;
+  white-space: nowrap;
+}
 
 .sidebar button:hover {
   background-color: #34495e;
@@ -50,5 +87,5 @@
 }
 
 .sidebar.collapsed {
-  width: 70px; /* Just wide enough for icons */
+  width: 70px;
 }
